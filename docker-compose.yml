@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  proftpd:
+    image: kibatic/proftpd
+    network_mode: "host"
+    restart: unless-stopped
+    environment:
+      FTP_LIST: "webmaster:a;user1:a;user2:a"
+      USERADD_OPTIONS: "-o --gid 33 --uid 33"
+    volumes:
+      - "./www:/home/webmaster"
+      - "./www/user1/:/home/user1"
+      - "./www/user2/:/home/user2"
+      - "./conf/proftpd.conf:/etc/proftpd/proftpd.conf"
+      - "./conf/virtuals.conf:/etc/proftpd/virtuals.conf"
